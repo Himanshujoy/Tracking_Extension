@@ -4,40 +4,42 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="popup-container">
-    <div class="container">
-      <h2>New Entry</h2>
+  <div class="outer-container">
+    <div class="popup-container">
+      <div class="container">
+        <h2>New Entry</h2>
 
-      <label>Name</label>
-      <input id="name" placeholder="Enter name">
+        <label>Name</label>
+        <input id="name" placeholder="Enter name">
 
-      <label>ID</label>
-      <input id="id" placeholder="12345">
+        <label>ID</label>
+        <input id="id" placeholder="12345">
 
-      <label>Description</label>
-      <textarea id="desc"></textarea>
+        <label>Description</label>
+        <textarea id="desc" placeholder="Description"></textarea>
 
-      <label>Link</label>
-      <div class="row">
-        <input id="link" placeholder="link">
-        <button id="useCurrent">Use</button>
-      </div>
-
-      <div class="row">
-        <div class="half">
-          <label>Status</label>
-          <input id="status" value="Submitted">
+        <label>Link</label>
+        <div class="row">
+          <input id="link" placeholder="link">
+          <button id="useCurrent">Use</button>
         </div>
 
-        <div class="half">
-          <label>Date</label>
-          <input id="date" type="date">
-        </div>
-      </div>
+        <div class="row">
+          <div class="half">
+            <label>Status</label>
+            <input id="status" value="Submitted">
+          </div>
 
-      <div class="actions">
-        <button id="save" class="primary">Save</button>
-        <button id="show">Show</button>
+          <div class="half">
+            <label>Date</label>
+            <input id="date" type="date">
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="save" class="primary">Save</button>
+          <button id="show">Show</button>
+        </div>
       </div>
     </div>
   </div>

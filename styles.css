@@ -1,32 +1,55 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  padding: 16px;
-  background-color: pink;
-
-  /* NEW */
-  border-radius: 12px;
-  min-width: 320px;
+/* GLOBAL FIX */
+* {
+  box-sizing: border-box;
 }
 
+/* REMOVE WHITE BACKGROUND */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: none; /* KEY FIX */
+}
+
+/* THIS becomes your visible popup */
+.outer-container {
+  background-color: green;
+  border-radius: 18px;
+  padding: 0px;
+  min-width: 320px;
+
+  overflow: hidden; /* CRITICAL */
+}
+
+/* INNER CARD */
 .popup-container {
-  background: green;
-  border-radius: 12px;
+  background: rgb(200, 228, 239);
+  border-radius: 14px;
   padding: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* Headings */
 h2 {
+  margin-top: 0;
   margin-bottom: 12px;
+}
+
+.status-cell {
+  border-radius: 6px;
+  text-align: center;
 }
 
 /* Inputs */
 input, textarea {
   width: 100%;
   margin-bottom: 8px;
-  padding: 6px;
+  padding: 8px;
+
   border: 1px solid #ddd;
   border-radius: 6px;
+
+  /* Prevent overflow */
+  display: block;
+
 }
 
 /* Buttons */
