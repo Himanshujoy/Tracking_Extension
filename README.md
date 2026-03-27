@@ -21,6 +21,26 @@ A simple and efficient Chrome Extension to track applications (jobs, internships
 
 ---
 
+## 📸 Screenshots
+
+<details>
+  <summary><b>🚀 Popup UI</b></summary>
+  <br>
+  <p align="center">
+    <img src="assets/popup.png" width="400"/>
+  </p>
+</details>
+
+<details>
+  <summary><b>📊 Applications Dashboard</b></summary>
+  <br>
+  <p align="center">
+    <img src="assets/table.png" width="800"/>
+  </p>
+</details>
+
+---
+
 ## 🛠️ Tech Stack
 
 * HTML
