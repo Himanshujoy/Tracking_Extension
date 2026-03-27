@@ -27,7 +27,7 @@ A simple and efficient Chrome Extension to track applications (jobs, internships
   <summary><b>🚀 Popup UI</b></summary>
   <br>
   <p align="center">
-    <img src="assets/popup.png" width="400"/>
+    <img src="assets/Popup.png" width="400"/>
   </p>
 </details>
 
