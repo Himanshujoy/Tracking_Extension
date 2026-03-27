@@ -52,7 +52,7 @@ document.getElementById("update").addEventListener("click", () => {
 // =======================
 // DOWNLOAD BUTTON
 // =======================
-document.getElementById("download").addEventListener("click", () => {
+document.getElementById("downloadCsv").addEventListener("click", () => {
   let csv = "Date,Name,ID,Description,Link,Status,Last Updated\n";
 
   globalData.forEach(row => {
@@ -64,6 +64,24 @@ document.getElementById("download").addEventListener("click", () => {
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = "data.csv";
+  a.download = "applications.csv";
   a.click();
+});
+
+document.getElementById("downloadExcel").addEventListener("click", () => {
+  const excelData = globalData.map(row => ({
+    Date: row.date,
+    Name: row.name,
+    ID: row.id,
+    Description: row.desc,
+    Link: row.link,
+    Status: row.status,
+    "Last Updated": row.lastUpdated
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(excelData);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Applications");
+
+  XLSX.writeFile(workbook, "applications.xlsx");
 });

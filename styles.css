@@ -20,3 +20,34 @@ table {
 td, th {
   padding: 5px;
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 115px;
+  border: 0px solid #ccc;
+  z-index: 1;
+}
+
+.dropdown-content button {
+  width: 100%;
+  border: none;
+  background: white;
+  padding: 8px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-content button:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
