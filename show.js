@@ -10,12 +10,12 @@ function loadTable() {
       let tr = document.createElement("tr");
 
       tr.innerHTML = `
+        <td>${row.date}</td>
         <td>${row.name}</td>
         <td>${row.id}</td>
         <td>${row.desc}</td>
         <td><a href="${row.link}" target="_blank">Link</a></td>
         <td contenteditable="true">${row.status}</td>
-        <td>${row.date}</td>
         <td>${row.lastUpdated}</td>
       `;
 
@@ -34,7 +34,7 @@ document.getElementById("update").addEventListener("click", () => {
   const rows = document.querySelectorAll("#table tbody tr");
 
   rows.forEach((tr, index) => {
-    const status = tr.children[4].innerText;
+    const status = tr.children[5].innerText;
 
     if (status !== globalData[index].status) {
       globalData[index].status = status;
@@ -53,10 +53,10 @@ document.getElementById("update").addEventListener("click", () => {
 // DOWNLOAD BUTTON
 // =======================
 document.getElementById("download").addEventListener("click", () => {
-  let csv = "Name,ID,Description,Link,Status,Date,Last Updated\n";
+  let csv = "Date,Name,ID,Description,Link,Status,Last Updated\n";
 
   globalData.forEach(row => {
-    csv += `${row.name},${row.id},${row.desc},${row.link},${row.status},${row.date},${row.lastUpdated}\n`;
+    csv += `${row.date},${row.name},${row.id},${row.desc},${row.link},${row.status},${row.lastUpdated}\n`;
   });
 
   const blob = new Blob([csv], { type: "text/csv" });
