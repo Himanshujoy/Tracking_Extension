@@ -151,3 +151,61 @@ td[contenteditable="true"] {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-right: 6px; /* RIGHT PADDING */
+}
+
+/* SEARCH BAR */
+#searchInput {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  height: 42px; /* FIXED HEIGHT */
+}
+
+/* DROPDOWN */
+#statusFilter {
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 2px solid #2563eb;
+  background: white;
+
+  height: 42px; /* MATCH SEARCH */
+  min-width: 140px;
+
+  cursor: pointer;
+}
+
+#statusFilter:hover {
+  border-color: #1d4ed8;
+}
+
+#searchInput:focus,
+#statusFilter:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.link-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Make input take remaining space */
+.link-row input {
+  flex: 1;
+  height: 38px;
+}
+
+/* Fix button size */
+.link-row button {
+  white-space: nowrap;
+  padding: 6px 12px;
+  height: 38px;
+}

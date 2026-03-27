@@ -1,4 +1,5 @@
 let globalData = [];
+let filteredData = [];
 
 // =======================
 // LOAD TABLE
@@ -6,27 +7,36 @@ let globalData = [];
 function loadTable() {
   chrome.storage.local.get(["data"], (result) => {
     globalData = result.data || [];
-    const tbody = document.querySelector("#table tbody");
-    tbody.innerHTML = "";
+    filteredData = [...globalData];
+    renderTable(filteredData);
+  });
+}
 
-    globalData.forEach((row, index) => {
-      let tr = document.createElement("tr");
 
-      tr.innerHTML = `
-        <td>${row.date || ""}</td>
-        <td>${row.name || ""}</td>
-        <td>${row.id || ""}</td>
-        <td>${row.desc || ""}</td>
-        <td><a href="${row.link}" target="_blank">Link</a></td>
-        <td contenteditable="true" class="status-cell">${row.status || ""}</td>
-        <td>${row.lastUpdated || ""}</td>
-      `;
+// =======================
+// RENDER TABLE
+// =======================
+function renderTable(data) {
+  const tbody = document.querySelector("#table tbody");
+  tbody.innerHTML = "";
 
-      const statusCell = tr.querySelector(".status-cell");
-      applyStatusColor(statusCell, row.status || "");
+  data.forEach((row) => {
+    let tr = document.createElement("tr");
 
-      tbody.appendChild(tr);
-    });
+    tr.innerHTML = `
+      <td>${row.date || ""}</td>
+      <td>${row.name || ""}</td>
+      <td>${row.id || ""}</td>
+      <td>${row.desc || ""}</td>
+      <td><a href="${row.link}" target="_blank">Link</a></td>
+      <td contenteditable="true" class="status-cell">${row.status || ""}</td>
+      <td>${row.lastUpdated || ""}</td>
+    `;
+
+    const statusCell = tr.querySelector(".status-cell");
+    applyStatusColor(statusCell, row.status || "");
+
+    tbody.appendChild(tr);
   });
 }
 
@@ -44,48 +54,78 @@ function applyStatusColor(cell, status) {
   cell.style.textAlign = "center";
 
   if (s === "submitted") {
-    cell.style.backgroundColor = "#facc15"; // yellow
+    cell.style.backgroundColor = "#facc15";
     cell.style.color = "black";
   } 
   else if (s === "rejected") {
-    cell.style.backgroundColor = "#ef4444"; // red
+    cell.style.backgroundColor = "#ef4444";
     cell.style.color = "white";
   } 
   else if (s === "accepted") {
-    cell.style.backgroundColor = "#166534"; // dark green
+    cell.style.backgroundColor = "#166534";
     cell.style.color = "white";
   } 
   else {
-    cell.style.backgroundColor = "#4ade80"; // light green
+    cell.style.backgroundColor = "#4ade80";
     cell.style.color = "black";
   }
 }
 
-loadTable();
+
+// =======================
+// SEARCH + FILTER
+// =======================
+document.getElementById("searchInput").addEventListener("input", applyFilters);
+document.getElementById("statusFilter").addEventListener("change", applyFilters);
+
+function applyFilters() {
+  const searchText = document.getElementById("searchInput").value.toLowerCase();
+  const statusValue = document.getElementById("statusFilter").value;
+
+  filteredData = globalData.filter(row => {
+    const matchesSearch =
+      (row.name || "").toLowerCase().includes(searchText) ||
+      (row.id || "").toLowerCase().includes(searchText) ||
+      (row.desc || "").toLowerCase().includes(searchText);
+
+    const matchesStatus =
+      statusValue === "all" ||
+      (statusValue === "other"
+        ? !["submitted", "accepted", "rejected"].includes((row.status || "").toLowerCase())
+        : (row.status || "").toLowerCase() === statusValue);
+
+
+    return matchesSearch && matchesStatus;
+  });
+
+  renderTable(filteredData);
+}
 
 
 // =======================
-// UPDATE BUTTON
+// UPDATE BUTTON (FIXED)
 // =======================
 document.getElementById("update").addEventListener("click", () => {
   const rows = document.querySelectorAll("#table tbody tr");
 
-  rows.forEach((tr, index) => {
-    let status = tr.children[5].innerText.trim(); // trim important
+  rows.forEach((tr) => {
+    const id = tr.children[2].innerText.trim();
+    const status = tr.children[5].innerText.trim();
 
-    if (status !== (globalData[index].status || "")) {
-      globalData[index].status = status;
-      globalData[index].lastUpdated = new Date().toISOString().split("T")[0];
+    const original = globalData.find(r => (r.id || "") === id);
+
+    if (original && status !== (original.status || "")) {
+      original.status = status;
+      original.lastUpdated = new Date().toISOString().split("T")[0];
     }
 
-    // Reapply color instantly
     const statusCell = tr.children[5];
     applyStatusColor(statusCell, status);
   });
 
   chrome.storage.local.set({ data: globalData }, () => {
     console.log("Updated!");
-    loadTable(); // refresh table
+    loadTable();
   });
 });
 
@@ -130,3 +170,9 @@ document.getElementById("downloadExcel").addEventListener("click", () => {
 
   XLSX.writeFile(workbook, "applications.xlsx");
 });
+
+
+// =======================
+// INIT
+// =======================
+loadTable();
