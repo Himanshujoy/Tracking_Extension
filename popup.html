@@ -4,22 +4,43 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h3>Enter Data</h3>
+  <div class="popup-container">
+    <div class="container">
+      <h2>New Entry</h2>
 
-  <input id="name" placeholder="Name"><br>
-  <input id="id" placeholder="ID"><br>
-  <textarea id="desc" placeholder="Description"></textarea><br>
+      <label>Name</label>
+      <input id="name" placeholder="Enter name">
 
-  <div>
-    <input id="link" placeholder="Link">
-    <button id="useCurrent">Use Current</button>
+      <label>ID</label>
+      <input id="id" placeholder="12345">
+
+      <label>Description</label>
+      <textarea id="desc"></textarea>
+
+      <label>Link</label>
+      <div class="row">
+        <input id="link" placeholder="link">
+        <button id="useCurrent">Use</button>
+      </div>
+
+      <div class="row">
+        <div class="half">
+          <label>Status</label>
+          <input id="status" value="Submitted">
+        </div>
+
+        <div class="half">
+          <label>Date</label>
+          <input id="date" type="date">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="save" class="primary">Save</button>
+        <button id="show">Show</button>
+      </div>
+    </div>
   </div>
-
-  <input id="status" value="Submitted"><br>
-  <input id="date" type="date"><br>
-
-  <button id="save">Save</button>
-  <button id="show">Show</button>
 
   <script src="popup.js"></script>
 </body>

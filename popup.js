@@ -24,7 +24,7 @@ document.getElementById("save").addEventListener("click", () => {
     data.push(entry);
 
     chrome.storage.local.set({ data }, () => {
-      alert("Saved!");
+      console.log("Saved!");
     });
   });
 });
